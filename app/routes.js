@@ -47,6 +47,7 @@ module.exports = function(app) {
 
         // Grab all of the query parameters from the body.
         var siteName = req.body.siteName;
+        var siteDesc = req.body.siteDesc
 
         // Opens a generic Mongoose Query. Depending on the post body we will...
         var query = Site.find({});

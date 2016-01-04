@@ -1,7 +1,7 @@
 <!-- queryForm.html -->
 
 <!-- Find Teammates (Query) Form -->
-
+<div class="col-md-5">
 
     <!-- Creates Main Panel -->
     <div class="panel panel-default">
@@ -48,21 +48,20 @@
               </v-pane>
             </v-accordion>
             <!-- Creates Form -->
-            <form name="queryForm" ng-submit="querySites()" flex>
-                <formly-form model="formData" fields="queryFields" form="queryForm">
+            <form name ="queryForm">
+
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
 
-<!--                     <div class="form-group">
-                        <label for="siteSearch">Site name</label>
-                        <input type="text" class="form-control" id="siteSearch" placeholder="Fortran" ng-model="formData.siteName">
-                    </div>
-                    <div class="form-group">
-                        <label for="keyword">Site description</label>
-                        <input type="text" class="form-control" id="keyword" placeholder="Neolithic" ng-model="formData.siteDesc">
-                    </div> -->
-                    <!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
-                    <md-button type="submit" class="md-js-button md-js-ripple-effect">Search</md-button>
-                </formly-form>
+                <div class="form-group">
+                    <label for="siteSearch">Site name</label>
+                    <input type="text" class="form-control" id="siteSearch" placeholder="Fortran" ng-model="formData.siteName">
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Site description</label>
+                    <input type="text" class="form-control" id="keyword" placeholder="Neolithic" ng-model="formData.siteDesc">
+                </div>
+                <!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
+                <button type="submit" class="btn btn-danger btn-block" ng-click="querySites()">Search</button>
             </form>
         </div>
         <!-- Footer panel for displaying count. Note how it will only display if queryCount is greater than 0 -->
@@ -73,3 +72,4 @@
             <p class="text-center">No sites found.</p>
         </div>
     </div>
+</div>
