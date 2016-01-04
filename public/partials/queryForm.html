@@ -1,0 +1,75 @@
+<!-- queryForm.html -->
+
+<!-- Find Teammates (Query) Form -->
+
+
+    <!-- Creates Main Panel -->
+    <div class="panel panel-default">
+
+        <!-- Panel Title -->
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Manx Archaeological sites!<span class="glyphicon glyphicon-search"></span></h2>
+        </div>
+
+        <!-- Panel Body -->
+        <div class="panel-body">
+            <h2 class="md-display-1">Sites visited</h2>
+
+            <v-accordion class="vAccordion--default">
+              <v-pane ng-repeat="site in sites">
+                <v-pane-header>
+                  <span class="site-name" data-site-id="{site._id}">{{site.siteName | uppercase}}</span>
+                </v-pane-header>
+
+                <v-pane-content>
+                  {{site.siteDesc}}
+                    <p><i>Take a closer look at this site - double tap to zoom in</i>.</p>
+                    <md-button aria-label="description" md-no-ink="true" md-ripple-size="full" ng-dblClick="selectSite(site._id)" ng-click="siteDeSelect()">Zoom in / out</md-button></p>
+
+                    <dl>
+                        <dt>Co-ordinates</dt>
+                        <!-- <dd>Lat: {{marker.siteDetails.markerCoords.latitude}}, Lon: {{marker.siteDetails.markerCoords.longitude}}</dd> -->
+                        <dt>Date visited</dt>
+                        <dd>{{site.dateVisited}}</dd>
+                    </dl>
+
+<!--                     <h3 ng-if="marker.media">Photos</h3>
+                    <md-grid-list md-cols="4" md-cols-sm="2" md-cols-md="2" md-cols-lg="4" md-cols-gt-lg="4" md-row-height="100px" md-gutter="1em">
+                        <md-grid-tile ng-repeat="item in marker.media" >
+                            <md-grid-tile-header>
+                              <h3>{{item.desc}}</h3>
+                            </md-grid-tile-header>
+
+                            <img src="{{item.src}}" md-lightbox md-lightbox-title="{{item.desc}}" alt="" class="site-media-thumb image-click">
+
+                        </md-grid-tile>
+                    </md-grid-list> -->
+                </v-pane-content>
+              </v-pane>
+            </v-accordion>
+            <!-- Creates Form -->
+            <form name="queryForm" ng-submit="querySites()" flex>
+                <formly-form model="formData" fields="queryFields" form="queryForm">
+                <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
+
+<!--                     <div class="form-group">
+                        <label for="siteSearch">Site name</label>
+                        <input type="text" class="form-control" id="siteSearch" placeholder="Fortran" ng-model="formData.siteName">
+                    </div>
+                    <div class="form-group">
+                        <label for="keyword">Site description</label>
+                        <input type="text" class="form-control" id="keyword" placeholder="Neolithic" ng-model="formData.siteDesc">
+                    </div> -->
+                    <!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
+                    <md-button type="submit" class="md-js-button md-js-ripple-effect">Search</md-button>
+                </formly-form>
+            </form>
+        </div>
+        <!-- Footer panel for displaying count. Note how it will only display if queryCount is greater than 0 -->
+        <div ng-show="queryCount>0" class="panel-footer">
+            <p class="text-center">{{queryCount}} sites found.</p>
+        </div>
+        <div ng-show="queryCount==0" class="panel-footer">
+            <p class="text-center">No sites found.</p>
+        </div>
+    </div>

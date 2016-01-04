@@ -1,0 +1,72 @@
+<!doctype html>
+<!-- Declares meanMapApp as the starting Angular module -->
+<html class="no-js" ng-app="archaeologyApp">
+<head>
+    <meta charset="utf-8">
+    <title>manx archaeology</title>
+    <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../bower_components/v-accordion/dist/v-accordion.css">
+    <!-- <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/> -->
+    <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="../dist/css/style.min.css"/>
+
+</head>
+<body ng-controller="addCtrl" layout="row">
+
+<div flex layout="column" tabIndex="-1" role="main">
+    <md-toolbar layout="row">
+        <ul class="nav nav-pills pull-right">
+            <li active><a href="/#/add-site">Add a new site</a></li>
+            <li disabled><a href="/#/find-site">Find Sites</a></li>
+        </ul>
+        <h3 class="text-muted">Manx Archaeology</h3>
+    </md-toolbar>
+    <!-- Map and Side Panel -->
+    <div layout="row">
+
+        <div layout="column" flex>
+            <p class="lead">A little app for recording the Archaeological sites on the Isle of Man we've visted and a place to store info and research.</p>
+            <!-- Google Map -->
+            <div id="map" style="width:645px; height:645px"></div>
+        </div>
+        <div layout="column" flex>
+            <div ng-view></div>
+        </div>
+
+
+    </div>
+    <hr/>
+    <!-- Footer -->
+    <div class="footer">
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> Created by Dave Sayer for Dave &amp; Ni -
+            <a href="http://davesayer.com/">davesayer.com</a> | <a href="http://archaeology.davesayer.com">App homepage</a></p>
+    </div>
+</div>
+
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAReigPupK3jl4ojw5WckhgCTb3oQbxfAw"></script>
+<!-- Modernizr -->
+<script src="../bower_components/modernizr/bin/modernizr"></script>
+<!-- JS Source -->
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-material/angular-material.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../bower_components/angular-aria/angular-aria.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
+<script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+<script src="../bower_components/api-check/dist/api-check.js"></script>
+<script src="../bower_components/angular-formly/dist/formly.js"></script>
+<script src="../bower_components/angular-formly-material/dist/formly-material.js"></script>
+<script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+<script src="../bower_components/v-accordion/dist/v-accordion.js"></script>
+
+<!-- Angular Scripts -->
+<script src="src/js/app.js"></script>
+<script src="src/js/addCtrl.js"></script>
+<script src="src/js/queryCtrl.js"></script>
+<script src="src/js/gservice.js"></script>
+</body>
+</html>
