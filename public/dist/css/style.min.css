@@ -1,1 +1,1 @@
-@grid-columns:12;@grid-gutter-width:30px;@grid-float-breakpoint:768px;.container .header{background:#05638c;height:100px}
+@grid-columns:12;@grid-gutter-width:30px;@grid-float-breakpoint:768px;.container .header{background:#05638c;height:100px}.btn-primary{background-color:#088c83;border-color:#088c83}.btn-primary:hover{background-color:#088c83;border-color:#088c83;color:#c8c8c8}

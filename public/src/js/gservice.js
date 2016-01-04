@@ -143,43 +143,59 @@ angular.module('gservice', [])
                 n.message.open(map, marker);
             });
         });
-
-        // Set initial location as a bouncing red marker
-        var initialLocation = new google.maps.LatLng(latitude, longitude);
-        var marker = new google.maps.Marker({
-            position: initialLocation,
-            animation: google.maps.Animation.BOUNCE,
-            map: map,
-            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-        });
-        lastMarker = marker;
-
-        // Function for moving to a selected location
-        map.panTo(new google.maps.LatLng(latitude, longitude));
-
-        // Clicking on the Map moves the bouncing red marker
-        google.maps.event.addListener(map, 'click', function(e){
+        if(!filter){
+            // Set initial location as a bouncing red marker
+            var initialLocation = new google.maps.LatLng(latitude, longitude);
             var marker = new google.maps.Marker({
-                position: e.latLng,
+                position: initialLocation,
                 animation: google.maps.Animation.BOUNCE,
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
-
-            // When a new spot is selected, delete the old red bouncing marker
-            if(lastMarker){
-                lastMarker.setMap(null);
-            }
-
-            // Create a new red bouncing marker and move to it
             lastMarker = marker;
-            map.panTo(marker.position);
 
-            // Update Broadcasted Variable (lets the panels know to change their lat, long values)
-            googleMapService.clickLat = marker.getPosition().lat();
-            googleMapService.clickLong = marker.getPosition().lng();
-            $rootScope.$broadcast("clicked");
-        });
+            // Function for moving to a selected location
+            map.panTo(new google.maps.LatLng(latitude, longitude));
+
+            // Clicking on the Map moves the bouncing red marker
+            google.maps.event.addListener(map, 'click', function(e){
+                var marker = new google.maps.Marker({
+                    position: e.latLng,
+                    animation: google.maps.Animation.BOUNCE,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                });
+
+                // When a new spot is selected, delete the old red bouncing marker
+                if(lastMarker){
+                    lastMarker.setMap(null);
+                }
+
+                // Create a new red bouncing marker and move to it
+                lastMarker = marker;
+                map.panTo(marker.position);
+
+                // Update Broadcasted Variable (lets the panels know to change their lat, long values)
+                googleMapService.clickLat = marker.getPosition().lat();
+                googleMapService.clickLong = marker.getPosition().lng();
+                $rootScope.$broadcast("clicked");
+            });
+        } else {
+            // Function for moving to a selected location
+            map.panTo(new google.maps.LatLng(latitude, longitude));
+
+            // Clicking on the Map moves the bouncing red marker
+            google.maps.event.addListener(map, 'click', function(e){
+
+                // map.panTo(e.latLng);
+
+                // Update Broadcasted Variable (lets the panels know to change their lat, long values)
+                googleMapService.clickLat = marker.getPosition().lat();
+                googleMapService.clickLong = marker.getPosition().lng();
+                $rootScope.$broadcast("clicked");
+            });
+        }
+
     };
 
     // Refresh the page upon window load. Use the initial latitude and longitude

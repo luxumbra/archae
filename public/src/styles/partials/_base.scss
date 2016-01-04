@@ -5,3 +5,13 @@
         height: 100px;
     }
 }
+.btn-primary {
+    background-color: $accent-color;
+    border-color: $accent-color;
+
+    &:hover {
+       background-color: $accent-color;
+       border-color: $accent-color;
+       color: $off-white;
+    }
+}

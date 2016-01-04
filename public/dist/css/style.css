@@ -5,6 +5,14 @@
   background: #05638c;
   height: 100px; }
 
+.btn-primary {
+  background-color: #088c83;
+  border-color: #088c83; }
+  .btn-primary:hover {
+    background-color: #088c83;
+    border-color: #088c83;
+    color: #c8c8c8; }
+
 /*@import "carousel";*/
 
 /*# sourceMappingURL=style.css.map */

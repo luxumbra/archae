@@ -13,7 +13,7 @@
 
         <!-- Panel Body -->
         <div class="panel-body">
-            <h2 class="md-display-1">Sites visited</h2>
+            <h2 class="md-display-1">Sites visited <a class="btn btn-default" href="" role="button" ng-click="resetMap()">Reset map</a></h2>
 
             <v-accordion class="vAccordion--default">
               <v-pane ng-repeat="site in sites">
@@ -51,7 +51,7 @@
             <form name ="queryForm">
 
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
-
+                <h3>Search sites</h3>
                 <div class="form-group">
                     <label for="siteSearch">Site name</label>
                     <input type="text" class="form-control" id="siteSearch" placeholder="Fortran" ng-model="formData.siteName">
@@ -61,7 +61,8 @@
                     <input type="text" class="form-control" id="keyword" placeholder="Neolithic" ng-model="formData.siteDesc">
                 </div>
                 <!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
-                <button type="submit" class="btn btn-danger btn-block" ng-click="querySites()">Search</button>
+                <button type="submit" class="btn btn-primary btn-block" ng-click="querySites()">Search</button>
+                <button type="reset" class="btn btn-muted btn-block" ng-click="resetForm()">Reset</button>
             </form>
         </div>
         <!-- Footer panel for displaying count. Note how it will only display if queryCount is greater than 0 -->

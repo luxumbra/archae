@@ -72,6 +72,14 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
 
             // return gservice;
     };
+    $scope.resetMap = function(){
+        gservice.refresh($scope.formData.latitude, $scope.formData.longitude)
+    }
+    $scope.resetForm = function(){
+                        // Once complete, clear the form (except location)
+                $scope.formData.siteName = "";
+                $scope.formData.siteDesc = "";
+    }
     // Take query parameters and incorporate into a JSON queryBody
     $scope.selectSite = function(data){
 
