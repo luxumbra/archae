@@ -173,6 +173,8 @@ angular.module('gservice', [])
 
                 // Create a new red bouncing marker and move to it
                 lastMarker = marker;
+                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+                map.setZoom(18);
                 map.panTo(marker.position);
 
                 // Update Broadcasted Variable (lets the panels know to change their lat, long values)
@@ -182,12 +184,12 @@ angular.module('gservice', [])
             });
         } else {
             // Function for moving to a selected location
-            map.panTo(new google.maps.LatLng(latitude, longitude));
+            // map.panTo(marker.position);
 
             // Clicking on the Map moves the bouncing red marker
             google.maps.event.addListener(map, 'click', function(e){
 
-                // map.panTo(e.latLng);
+                map.panTo(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0]);
 
                 // Update Broadcasted Variable (lets the panels know to change their lat, long values)
                 googleMapService.clickLat = marker.getPosition().lat();

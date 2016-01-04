@@ -60,9 +60,11 @@
                     <label for="keyword">Site description</label>
                     <input type="text" class="form-control" id="keyword" placeholder="Neolithic" ng-model="formData.siteDesc">
                 </div>
-                <!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
-                <button type="submit" class="btn btn-primary btn-block" ng-click="querySites()">Search</button>
-                <button type="reset" class="btn btn-muted btn-block" ng-click="resetForm()">Reset</button>
+                <!-- Query button. Note that its tied to querySites() function from queryCtrl.  -->
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-primary" ng-click="querySites()">Search</button>
+                    <button type="reset" class="btn btn-muted" ng-click="resetForm()">Reset</button>
+                </div>
             </form>
         </div>
         <!-- Footer panel for displaying count. Note how it will only display if queryCount is greater than 0 -->
