@@ -144,6 +144,7 @@ angular.module('gservice', [])
             });
         });
         if(!filter){
+            console.log('No filter active');
             // Set initial location as a bouncing red marker
             var initialLocation = new google.maps.LatLng(latitude, longitude);
             var marker = new google.maps.Marker({
@@ -183,8 +184,11 @@ angular.module('gservice', [])
                 $rootScope.$broadcast("clicked");
             });
         } else {
+            console.log('Filter active');
             // Function for moving to a selected location
-            // map.panTo(marker.position);
+            // map.panTo(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0]);
+            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            map.setZoom(10);
 
             // Clicking on the Map moves the bouncing red marker
             google.maps.event.addListener(map, 'click', function(e){

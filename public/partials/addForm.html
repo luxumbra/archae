@@ -3,7 +3,7 @@
     <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h2 class="panel-title text-center">Join the Scotch Team! <span class="glyphicon glyphicon-map-marker"></span></h2>
+            <h2 class="panel-title text-center">Add a new site! <span class="glyphicon glyphicon-map-marker"></span></h2>
         </div>
         <!-- Panel Body -->
         <div class="panel-body">
@@ -11,7 +11,7 @@
             <form name ="addForm" novalidate>
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                 <div class="form-group">
-                    <label for="siteName">Site name <span class="badge">All fields required</span></label>
+                    <label for="siteName">Site name <span class="badge btn-info">All fields required</span></label>
                     <input type="text" class="form-control" id="siteName" placeholder="Cashtal Yn Ard" ng-model="formData.siteName" required>
                 </div>
                 <div class="form-group">
@@ -24,18 +24,52 @@
                 </div>
                 <div class="form-group">
                     <label for="latitude">Latitude</label>
-                    <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
+                    <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude">
                 </div>
                 <div class="form-group">
                     <label for="longitude">Longitude</label>
-                    <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
+                    <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude">
                 </div>
                 <div class="form-group">
                     <label for="verified">HTML5 Verified Location? <span><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
                     <input type="text" class="form-control" id="verified" placeholder= "Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" readonly>
                 </div>
+                <div class="form-group">
+                    <div flow-init="{target: '/upload'}"
+                         flow-files-submitted="$flow.upload()"
+                         flow-file-success="$file.msg = $message">
+                        <div class="btn-group" role="group">
+                            <span class="btn btn-primary btn-sm glyphicon glyphicon-cloud-upload
+" flow-btn>
+                                Upload file
+                                <input type="file" style="visibility: hidden; position: absolute;"/>
+                            </span>
+                            <span class="btn btn-primary btn-sm glyphicon glyphicon-cloud-upload
+" flow-btn flow-directory>
+                                Upload directory
+                                <input type="file" flow-directory style="visibility: hidden; position: absolute;"/>
+                            </span>
+<!--                             <span class="btn btn-success btn-sm glyphicon glyphicon-cloud-upload" flow-btn>
+                            Upload File
+                            </span> -->
+                        </div>
+
+                          <table class="table">
+                            <legend>Files to upload</legend>
+                            <tr ng-repeat="file in $flow.files">
+                                <td>{{$index+1}}</td>
+                                <td>{{file.name}}</td>
+                                <td>{{file.msg}}</td>
+                            </tr>
+                          </table>
+
+                    </div>
+                </div>
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
-                <button type="submit" class="btn btn-danger btn-block" ng-click="createSite()" ng-disabled="addForm.$invalid">Submit</button>
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="createSite()" ng-disabled="addForm.$invalid">Submit</button>
+                    <button type="reset" class="btn btn-muted btn-sm" ng-click="resetForm()" ng-disabled="addForm.$pristine">Reset</button>
+                </div>
             </form>
         </div>
     </div>

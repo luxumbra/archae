@@ -1,17 +1,59 @@
 .container {
 
-    .header {
-        background: $main-color;
-        height: 100px;
+    .page-header {
+
+      .navbar {
+        background-color: $accent-color;
+        color: $white;
+
+        .navbar-brand {
+          color: $white;
+        }
+
+        .nav {
+          li {
+            a {
+              color: $white;
+
+              &:active,
+              &:focus,
+              &:visited {
+                background-color: $accent-color-b;
+              }
+              &:hover {
+                background-color: $accent-color;
+                color: $off-white;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    .panel {
+      .panel-heading {
+        background-color: $accent-color;
+        color: $white;
+
+        .btn-primary {
+          border-color: $white;
+        }
+      }
+    }
+    .badge.btn-info {
+      background-color: $accent-color;
+      border-color: $accent-color;
     }
 }
-.btn-primary {
+.btn-primary,
+.btn-primary[disabled] {
     background-color: $accent-color;
     border-color: $accent-color;
 
-    &:hover {
-       background-color: $accent-color;
-       border-color: $accent-color;
-       color: $off-white;
+    &:hover,
+    &:focus {
+       background-color: $accent-color-b;
+       border-color: $accent-color-b;
     }
 }

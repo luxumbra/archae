@@ -43,7 +43,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
 
     // Functions
     // ----------------------------------------------------------------------------
-    // Creates a new user based on the form fields
+    // Creates a new site based on the form fields
     $scope.createSite = function() {
 
         // Grabs all of the text box fields
@@ -73,5 +73,14 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
             .error(function (data) {
                 console.log('Error: ' + data);
             });
+    };
+    $scope.resetForm = function(){
+                        // Once complete, clear the form (except location)
+                $scope.formData.siteName = "";
+                $scope.formData.siteDesc = "";
+                $scope.formData.dateVisited = "";
+                $scope.formData.longitude = "";
+                $scope.formData.latitude = "";
+                $scope.formData.htmlverified = "";
     };
 });

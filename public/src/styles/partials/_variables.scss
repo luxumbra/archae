@@ -1,8 +1,10 @@
 @grid-columns:              12;
 @grid-gutter-width:         30px;
-@grid-float-breakpoint:     768px;
+@grid-float-breakpoint:     1250px;
 
 $main-color: rgb(5,99,140);
 $accent-color: rgb(8,140,131);
+$accent-color-b: rgb(16,117,108);
 $white: rgb(255,255,255);
 $off-white: rgb(200,200,200);
+$info-color: rgb(91,192,222);

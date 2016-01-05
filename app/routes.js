@@ -83,4 +83,18 @@ module.exports = function(app) {
             res.json(sites);
         });
     });
+    app.post('/site-edit', function(req, res){
+        var _id = req.body._id;
+        console.log('site for editing: ' + _id);
+        // Uses Mongoose schema to run the search (empty conditions)
+        var query = Site.update({'_id': _id});
+
+        query.exec(function(err, sites){
+            if(err)
+                res.send(err);
+
+            // If no errors are found, it responds with a JSON of all users
+            res.json(sites);
+        });
+    });
 };

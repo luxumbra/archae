@@ -1,0 +1,24 @@
+.vAccordion--default {
+    [aria-selected="false"],
+    [aria-selected="true"] {
+        &:after,
+        &:before {
+            background-color: $accent-color;
+        }
+    }
+    [aria-selected="false"] {
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: $accent-color;
+        }
+    }
+    .is-expanded {
+        [aria-selected="true"] {
+            color: $accent-color;
+            border-bottom-color: $accent-color;
+        }
+
+    }
+}

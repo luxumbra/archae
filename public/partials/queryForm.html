@@ -8,12 +8,12 @@
 
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h2 class="panel-title text-center">Manx Archaeological sites!<span class="glyphicon glyphicon-search"></span></h2>
+            <h2 class="panel-title text-center">Manx Archaeological sites <span class="glyphicon glyphicon-globe"></span> <a class="btn btn-primary btn-xs pull-right" href="" role="button" ng-click="resetMap()">Reset map</a></h2>
         </div>
 
         <!-- Panel Body -->
         <div class="panel-body">
-            <h2 class="md-display-1">Sites visited <a class="btn btn-default" href="" role="button" ng-click="resetMap()">Reset map</a></h2>
+            <h2 class="md-display-1">Sites visited</h2>
 
             <v-accordion class="vAccordion--default">
               <v-pane ng-repeat="site in sites">
@@ -23,9 +23,12 @@
 
                 <v-pane-content>
                   {{site.siteDesc}}
-                    <p><i>Take a closer look at this site - double tap to zoom in</i>.</p>
-                    <md-button aria-label="description" md-no-ink="true" md-ripple-size="full" ng-dblClick="selectSite(site._id)" ng-click="siteDeSelect()">Zoom in / out</md-button></p>
-
+                    <p><i>Take a closer look at this site - double tap the 'zoom' button to zoom in</i>.</p>
+                    <div class="btn-group" role="group">
+                    <button class="btn btn-default btn-sm" aria-label="description" md-no-ink="true" md-ripple-size="full" ng-click="selectSite(site._id)">Zoom in</button>
+                    <button class="btn btn-default btn-sm" href="" role="button" ng-click="deSelectSite()">Zoom out</button>
+                    <button class="btn btn-default btn-sm" href="" role="button" ng-click="editSite(site._id)">Edit site</button>
+                    </div>
                     <dl>
                         <dt>Co-ordinates</dt>
                         <!-- <dd>Lat: {{marker.siteDetails.markerCoords.latitude}}, Lon: {{marker.siteDetails.markerCoords.longitude}}</dd> -->
@@ -48,7 +51,7 @@
               </v-pane>
             </v-accordion>
             <!-- Creates Form -->
-            <form name ="queryForm">
+            <form name="queryForm">
 
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                 <h3>Search sites</h3>
@@ -62,8 +65,8 @@
                 </div>
                 <!-- Query button. Note that its tied to querySites() function from queryCtrl.  -->
                 <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-primary" ng-click="querySites()">Search</button>
-                    <button type="reset" class="btn btn-muted" ng-click="resetForm()">Reset</button>
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="querySites()">Search</button>
+                    <button type="reset" class="btn btn-muted btn-sm" ng-click="resetForm()">Reset</button>
                 </div>
             </form>
         </div>

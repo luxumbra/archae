@@ -22,6 +22,11 @@
     <script src="../bower_components/v-accordion/dist/v-accordion.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+    <!-- concatenated flow.js + ng-flow libraries -->
+    <script src="../bower_components/ng-flow/dist/ng-flow-standalone.min.js"></script>
+    <!-- or include the files separately -->
+    <script src="../bower_components/flow.js/dist/flow.min.js"></script>
+    <script src="../bower_components/ng-flow/dist/ng-flow.min.js"></script>
 
     <!-- Angular Scripts -->
     <script src="src/js/app.js"></script>
@@ -46,15 +51,20 @@
           <a class="navbar-brand" href="/">Manx Archaeology</a>
         </div>
         <ul class="nav nav-pills pull-right">
-            <li active><a href="/#/add-site">Add a new site</a></li>
-            <li disabled><a href="/#/find-site">Find Sites</a></li>
+            <li><a href="/#/add-site">Add a new site</a></li>
+            <li><a href="/#/find-site">The Sites</a></li>
         </ul>
-    </div>
+    </nav>
     <!-- Map and Side Panel -->
     <div class="row content">
         <!-- Google Map -->
         <div class="col-md-7">
-            <p class="lead">A little app for recording the Archaeological sites on the Isle of Man we've visted and a place to store info and research.</p>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p>A little app for recording the Archaeological sites on the Isle of Man we've visted and a place to store info and research.</p>
+              </div>
+            </div>
+
             <div id="map" style="width:645px; height:645px"></div>
         </div>
 

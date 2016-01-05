@@ -37,14 +37,6 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
 
         // Assemble Query Body
         queryBody = {
-            // longitude: parseFloat($scope.formData.longitude),
-            // latitude: parseFloat($scope.formData.latitude),
-            // distance: parseFloat($scope.formData.distance),
-            // male: $scope.formData.male,
-            // female: $scope.formData.female,
-            // other: $scope.formData.other,
-            // minAge: $scope.formData.minage,
-            // maxAge: $scope.formData.maxage,
             siteName: $scope.formData.siteName,
             siteDesc: $scope.formData.siteDesc
         };
@@ -56,13 +48,13 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
             .success(function(queryResults){
 
                 // Query Body and Result Logging
-                // console.log("QueryBody:");
-                // console.log(queryBody);
-                // console.log("QueryResults:");
-                // console.log(queryResults);
+                console.log("QueryBody:");
+                console.log(queryBody);
+                console.log("QueryResults:");
+                console.log(queryResults);
 
                 // Pass the filtered results to the Google Map Service and refresh the map
-                gservice.refresh($scope.formData.latitude, $scope.formData.longitude, queryResults);
+                gservice.refresh(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0], queryResults);
                 // Count the number of records retrieved for the panel-footer
                 $scope.queryCount = queryResults.length;
             })
@@ -70,8 +62,9 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
                 console.log('Error ' + queryResults);
             });
 
-            // return gservice;
+            return gservice;
     };
+
     $scope.resetMap = function(){
         gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
     };
@@ -108,6 +101,39 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
 
             // return gservice;
     };
+
+    // Edits a site based on the form fields
+    // $scope.editSite = function(data) {
+    //     console.log('Site to edit: ' + data);
+    //     // Grabs all of the text box fields
+    //     var siteData = {
+    //         siteName: $scope.formData.siteName,
+    //         siteDesc: $scope.formData.siteDesc,
+    //         dateVisited: $scope.formData.dateVisited,
+    //         siteCoords: [$scope.formData.longitude, $scope.formData.latitude],
+    //         htmlverified: $scope.formData.htmlverified
+    //     };
+
+    //     // Saves the user data to the db
+    //     $http.post('/sites', siteData)
+    //         .success(function (data) {
+
+    //             // Once complete, clear the form (except location)
+    //             $scope.formData.siteName = "";
+    //             $scope.formData.siteDesc = "";
+    //             $scope.formData.dateVisited = "";
+    //             $scope.formData.siteCoords = "";
+
+    //             // Refresh the map with new data
+    //             gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
+
+
+    //         })
+    //         .error(function (data) {
+    //             console.log('Error: ' + data);
+    //         });
+    // };
+
     $http.get('/sites')
         .success(function(data) {
             $scope.sites = data;
