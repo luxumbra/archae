@@ -34,7 +34,7 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
 
     // Take query parameters and incorporate into a JSON queryBody
     $scope.querySites = function(){
-
+        console.log('Querying (searching) sites');
         // Assemble Query Body
         queryBody = {
             siteName: $scope.formData.siteName,
@@ -48,10 +48,10 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
             .success(function(queryResults){
 
                 // Query Body and Result Logging
-                console.log("QueryBody:");
+                console.log("QuerySiteBody:");
                 console.log(queryBody);
-                console.log("QueryResults:");
-                console.log(queryResults);
+                console.log("QuerySiteResults:");
+                console.log(queryResults.length);
 
                 // Pass the filtered results to the Google Map Service and refresh the map
                 gservice.refresh(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0], queryResults);
@@ -75,7 +75,7 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
     };
     // Take query parameters and incorporate into a JSON queryBody
     $scope.selectSite = function(data){
-
+        console.log('Selecting site');
         var siteID = data;
         // var siteReturned;
         console.log('Site clicked: ' + siteID);

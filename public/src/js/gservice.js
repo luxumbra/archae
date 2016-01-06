@@ -96,6 +96,8 @@ angular.module('gservice', [])
 
         // Uses the selected lat, long as starting point
         var myLatLng = {lat: selectedLat, lng: selectedLong};
+        console.log('LatLng: ' + myLatLng.lat + ', ' + myLatLng.lng);
+
         var mapOptions = {
                 zoomControl: true,
                 mapTypeControl: true,
@@ -104,11 +106,12 @@ angular.module('gservice', [])
                 rotateControl: true
             };
         var map = "";
-
+        var site = {lat: latitude, lng: longitude};
+        // console.log('Site: ' + site[0] + ', ' site[1]);
         // If map has not been created already...
         console.log('no map');
         if (!map){
-            console.log('create one');
+            console.log('so we create one');
             // Create a new map and place in the index.html page
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 10,
@@ -184,22 +187,30 @@ angular.module('gservice', [])
                 $rootScope.$broadcast("clicked");
             });
         } else {
+            console.log('Search description for: ' + queryForm.keyword.value);
+            console.log('Search siteName for: ' + queryForm.siteSearch.value);
+
+            if(queryForm.keyword.value || queryForm.siteSearch.value) {
+                // map.setZoom(10);
+            } else{
+                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+                map.setZoom(16);
+            }
             console.log('Filter active');
             // Function for moving to a selected location
-            // map.panTo(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0]);
-            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-            map.setZoom(10);
+            // map.panTo(site['lat'], site['lng']);
 
             // Clicking on the Map moves the bouncing red marker
             google.maps.event.addListener(map, 'click', function(e){
 
-                map.panTo(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0]);
+                // map.panTo(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0]);
 
                 // Update Broadcasted Variable (lets the panels know to change their lat, long values)
                 googleMapService.clickLat = marker.getPosition().lat();
                 googleMapService.clickLong = marker.getPosition().lng();
                 $rootScope.$broadcast("clicked");
             });
+            // console.log('We found ' + angular.toJson($scope.queryResults, true));
         }
 
     };
