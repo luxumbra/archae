@@ -194,18 +194,19 @@ angular.module('gservice', [])
             //     title: "Big Map",
             //     icon: icon,
             // });
-            map.setZoom(16);
-            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            map.setZoom(10);
+
             var doZoom = $('#zoomButton');
 
             if(doZoom){
                 console.log('zoom: ' + doZoom);
-                $('#zoomButton').click(function(){
+                doZoom.on('click', function(){
                     console.log('Clicked the zoom');
                     map.setZoom(16);
+                    map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
                 });
             } else {
-                map.setZoom(16);
+                map.setZoom(10);
             }
             // lastMarker = marker;
 

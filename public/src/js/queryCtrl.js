@@ -90,7 +90,7 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
             .success(function(queryResults){
 
                 // Query Body and Result Logging
-                console.log("QueryBody:");
+                console.log("Select site QueryBody:");
                 console.log(queryResults);
 
                 // Pass the filtered results to the Google Map Service and refresh the map
