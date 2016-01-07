@@ -83,11 +83,25 @@ module.exports = function(app) {
             res.json(sites);
         });
     });
-    app.post('/site-edit', function(req, res){
-        var _id = req.body._id;
-        console.log('site for editing: ' + _id);
+    app.post('/site-edit-query', function(req, res){
+        var siteName = req.body.siteName;
+        console.log('route site edit query: ' + siteName);
         // Uses Mongoose schema to run the search (empty conditions)
-        var query = Site.update({'_id': _id});
+        var query = Site.find({'siteName': ''+siteName+''});
+
+        query.exec(function(err, sites){
+            if(err)
+                res.send(err);
+
+            // If no errors are found, it responds with a JSON of all users
+            res.json(sites);
+        });
+    });
+    app.post('/site-edit', function(req, res){
+        var siteName = req.body.siteName;
+        console.log('site for editing: ' + siteName);
+        // Uses Mongoose schema to run the search (empty conditions)
+        var query = Site.update({'siteName': siteName});
 
         query.exec(function(err, sites){
             if(err)

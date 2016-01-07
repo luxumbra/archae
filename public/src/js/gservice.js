@@ -187,34 +187,59 @@ angular.module('gservice', [])
                 $rootScope.$broadcast("clicked");
             });
         } else {
-            console.log('Search description for: ' + queryForm.keyword.value);
-            console.log('Search siteName for: ' + queryForm.siteSearch.value);
+            // var initialLocation = new google.maps.LatLng(latitude, longitude);
+            // var marker = new google.maps.Marker({
+            //     position: initialLocation,
+            //     map: map,
+            //     title: "Big Map",
+            //     icon: icon,
+            // });
+            map.setZoom(16);
+            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            var doZoom = $('#zoomButton');
 
-            if(queryForm.keyword.value || queryForm.siteSearch.value) {
-                // map.setZoom(10);
-            } else{
-                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            if(doZoom){
+                console.log('zoom: ' + doZoom);
+                $('#zoomButton').click(function(){
+                    console.log('Clicked the zoom');
+                    map.setZoom(16);
+                });
+            } else {
                 map.setZoom(16);
             }
-            console.log('Filter active');
+            // lastMarker = marker;
+
             // Function for moving to a selected location
-            // map.panTo(site['lat'], site['lng']);
+            map.panTo(new google.maps.LatLng(latitude, longitude));
 
             // Clicking on the Map moves the bouncing red marker
-            google.maps.event.addListener(map, 'click', function(e){
+            // google.maps.event.addListener(map, 'click', function(e){
+            //     var marker = new google.maps.Marker({
+            //         position: e.latLng,
+            //         animation: google.maps.Animation.BOUNCE,
+            //         map: map,
+            //         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            //     });
 
-                // map.panTo(queryResults[0].siteCoords[1], queryResults[0].siteCoords[0]);
+            //     // When a new spot is selected, delete the old red bouncing marker
+            //     if(lastMarker){
+            //         lastMarker.setMap(null);
+            //     }
 
-                // Update Broadcasted Variable (lets the panels know to change their lat, long values)
-                googleMapService.clickLat = marker.getPosition().lat();
-                googleMapService.clickLong = marker.getPosition().lng();
-                $rootScope.$broadcast("clicked");
-            });
-            // console.log('We found ' + angular.toJson($scope.queryResults, true));
+            //     // Create a new red bouncing marker and move to it
+            //     lastMarker = marker;
+            //     map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            //     map.setZoom(18);
+            //     map.panTo(marker.position);
+
+            //     // Update Broadcasted Variable (lets the panels know to change their lat, long values)
+            //     googleMapService.clickLat = marker.getPosition().lat();
+            //     googleMapService.clickLong = marker.getPosition().lng();
+            //     $rootScope.$broadcast("clicked");
+            // });
         }
 
     };
-
     // Refresh the page upon window load. Use the initial latitude and longitude
     google.maps.event.addDomListener(window, 'load',
         googleMapService.refresh(selectedLat, selectedLong));

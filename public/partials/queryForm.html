@@ -25,9 +25,12 @@
                   {{site.siteDesc}}
                     <p><i>Take a closer look at this site - double tap the 'zoom' button to zoom in</i>.</p>
                     <div class="btn-group" role="group">
-                    <button class="btn btn-default btn-sm" aria-label="description" md-no-ink="true" md-ripple-size="full" ng-click="selectSite(site._id)">Zoom in</button>
-                    <button class="btn btn-default btn-sm" href="" role="button" ng-click="deSelectSite()">Zoom out</button>
-                    <button class="btn btn-default btn-sm" href="" role="button" ng-click="editSite(site._id)">Edit site</button>
+                    <button class="btn btn-default btn-sm" md-no-ink="true" md-ripple-size="full" ng-click="selectSite(site._id)">Show</button>
+                    <button class="btn btn-default btn-sm" md-no-ink="true" md-ripple-size="full" ng-click="selectSite(site._id)" id="zoomButton">Zoom in</button>
+                    <button class="btn btn-default btn-sm" role="button" ng-click="siteDeSelect(site._id)">Zoom out</button>
+                    <span ng-controller="editCtrl">
+                    <a class="btn btn-default btn-sm" href="/#/edit-site" role="button" ng-click="getSite(site.siteName)">Edit site</a>
+                    </span>
                     </div>
                     <dl>
                         <dt>Co-ordinates</dt>

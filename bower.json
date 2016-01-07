@@ -1,0 +1,34 @@
+{
+  "name": "MeanMapsApp",
+  "description": "App to handle archaeological sites",
+  "main": "server.js",
+  "authors": [
+    "Dave Sayer <me@davesayer.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "homepage": "http://davesayer.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-formly-material": "~0.12.0",
+    "angular-formly": "~7.3.9",
+    "angular-material": "~1.0.1",
+    "angular-route": "1.4.6",
+    "angularjs-geolocation": "0.1.1",
+    "bootstrap": "3.3.5",
+    "bootstrap3-typeahead": "master",
+    "modernizr": "3.0.0",
+    "ng-flow": "~2",
+    "v-accordion": "~1.4.1"
+  }
+}

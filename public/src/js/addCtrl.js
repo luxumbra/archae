@@ -8,6 +8,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
     var coords = {};
     var lat = 0;
     var long = 0;
+    console.log('Add control in use');
 
     // Set initial coordinates to the center of the US
     $scope.formData.latitude = 54.1772743;

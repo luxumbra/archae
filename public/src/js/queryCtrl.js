@@ -9,7 +9,7 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
     $scope.formData = {};
     var queryBody = {};
     var queryResults;
-
+    console.log('Query control in use');
     // Functions
     // ----------------------------------------------------------------------------
 
@@ -102,6 +102,15 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
             // return gservice;
     };
 
+    // $scope.siteDeSelect = function(data) {
+    //     console.log('Zoom out');
+    //     $scope.siteID = data;
+    //     // var siteReturned;
+    //     console.log('Site clicked to zoom out: ' + $scope.siteID);
+
+    //     // Post the queryBody to the /query POST route to retrieve the filtered results
+
+    // };
     // Edits a site based on the form fields
     // $scope.editSite = function(data) {
     //     console.log('Site to edit: ' + data);

@@ -25,29 +25,6 @@ app.use(methodOverride());
 
 // Routes
 // ------------------------------------------------------
-// router.route('/sites')
-
-//     // get all the bears (accessed at GET http://localhost:8080/api/bears)
-//     .get(function(req, res) {
-//         Site.find(function(err, sites) {
-//             if (err)
-//                 res.send(err);
-
-//             res.json(sites);
-//         });
-//     });
-
-// router.route('/sites/:_id')
-
-//     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
-//     .get(function(req, res) {
-//         Site.findById(req.params._id, function(err, site) {
-//             if (err)
-//                 res.send(err);
-//             res.json(site);
-//         });
-//     });
-
 require('./app/routes.js')(app);
 
 // Listen

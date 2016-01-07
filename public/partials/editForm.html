@@ -3,35 +3,47 @@
     <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h2 class="panel-title text-center">Join the Scotch Team! <span class="glyphicon glyphicon-map-marker"></span></h2>
+            <h2 class="panel-title text-center">Edit a site! <span class="glyphicon glyphicon-map-marker"></span></h2>
         </div>
         <!-- Panel Body -->
         <div class="panel-body">
             <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-            <form name ="editForm" novalidate>
+            <form name="editForm" novalidate>
+<!--                 <div class="form-group">
+                    <label for="siteSearch">Site name</label>
+                    <input type="text" class="form-control" id="siteSearch" placeholder="Start typing the site name..." ng-model="editFormData.siteName" ng-change="autoComplete(editFormData.siteName)" data-provide="typeahead" autocomplete="off">
+                </div> -->
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                 <div class="form-group">
-                    <label for="siteName">Site name</label>
-                    <input type="text" class="form-control" id="siteName" placeholder="Cashtal Yn Ard" ng-model="formData.siteName">
+                    <label for="siteName">Site name <span class="badge btn-info">All fields required</span></label>
+                    <input type="text" class="form-control" id="siteName" placeholder="Cashtal Yn Ard" ng-model="formData.siteName" ng-blur="getSite(formData.siteName)"value="formData.siteName" required>
                 </div>
                 <div class="form-group">
                     <label for="dateVisited">Date visited</label>
-                    <input type="date" class="form-control" id="dateVistied" placeholder="" ng-model="formData.dateVisited">
+                    <input type="date" class="form-control" id="dateVistied" placeholder="" ng-model="formData.dateVisited" value="formData.DateVisited" required>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" ng-model="formData.siteDesc"></textarea>
+                    <textarea class="form-control" id="description" placeholder="Fortran" ng-model="formData.siteDesc" value="site.siteDesc" style="height: 270px;" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="latitude">Latitude</label>
-                    <input type="text" class="form-control" id="latitude" value="site.siteCoords[0]" ng-model="formData.latitude">
+                    <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" value="formData.latitude">
                 </div>
                 <div class="form-group">
                     <label for="longitude">Longitude</label>
-                    <input type="text" class="form-control" id="longitude" value="site.Coords[1]" ng-model="formData.longitude">
+                    <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" value="formData.longitude">
                 </div>
+                <div class="form-group">
+                    <label for="verified">HTML5 Verified Location? <span><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
+                    <input type="text" class="form-control" id="verified" placeholder= "Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" value="formData.htmlverified" readonly>
+                </div>
+
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
-                <button type="submit" class="btn btn-danger btn-block" ng-click="editSite(site._id)" ng-disabled="addForm.$invalid">Submit</button>
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="editSite()" ng-disabled="editForm.$invalid">Submit</button>
+                    <button type="reset" class="btn btn-muted btn-sm" ng-click="resetForm()" ng-disabled="editForm.$pristine">Reset</button>
+                </div>
             </form>
         </div>
     </div>

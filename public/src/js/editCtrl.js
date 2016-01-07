@@ -4,7 +4,11 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
 
     // Initializes Variables
     // ----------------------------------------------------------------------------
-    $scope.formData = {};
+    $scope.editFormData = {};
+    var queryBody = {};
+    var queryResults = {};
+    console.log('Edit controller in use');
+
     // var coords = {};
     // var lat = 0;
     // var long = 0;
@@ -43,7 +47,39 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
 
     // Functions
     // ----------------------------------------------------------------------------
-    // Creates a new site based on the form fields
+    // Edits an existing site based on the form fields
+
+    $scope.getSite = function(data) {
+        var siteToEdit = {};
+        queryBody = {
+                siteName: data
+            };
+
+        console.log('Search data: ' + angular.toJson(queryBody));
+
+        $http.post('/site-edit-query', queryBody)
+            .success(function (queryResults) {
+                console.log('Site to edit query:-');
+                console.log(queryResults);
+                siteToEdit = queryResults[0];
+                console.log('Site to edit json:-');
+                console.log(siteToEdit);
+                dateVisited = new Date(siteToEdit.dateVisited);
+                // Once complete, clear the form (except location)
+                $scope.formData.siteName = siteToEdit.siteName;
+                $scope.formData.siteDesc = siteToEdit.siteDesc;
+                $scope.formData.dateVisited = dateVisited;
+                $scope.formData.latitude = siteToEdit.siteCoords[1];
+                $scope.formData.longitude = siteToEdit.siteCoords[0];
+
+                gservice.refresh($scope.formData.latitude, $scope.formData.longitude, queryResults[0]);
+
+            })
+            .error(function (queryResults) {
+                console.log('Error: ' + queryResults);
+            });
+    };
+
     $scope.editSite = function() {
 
         // Grabs all of the text box fields
@@ -56,7 +92,7 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
         };
 
         // Saves the user data to the db
-        $http.post('/sites', siteData)
+        $http.post('/site-edit', siteData)
             .success(function (data) {
 
                 // Once complete, clear the form (except location)
