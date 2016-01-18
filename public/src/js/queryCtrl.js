@@ -146,6 +146,6 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
     $http.get('/sites')
         .success(function(data) {
             $scope.sites = data;
-            console.log(data);
+            console.log('all sites data: ' + data);
         });
 });

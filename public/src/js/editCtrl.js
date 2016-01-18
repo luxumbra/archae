@@ -7,6 +7,10 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
     $scope.editFormData = {};
     var queryBody = {};
     var queryResults = {};
+    var taInitial = {};
+    $scope.searchData = {};
+    $scope.searchResults = [];
+    // $scope.sitesByName = function();
     console.log('Edit controller in use');
 
     // var coords = {};
@@ -47,32 +51,84 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
 
     // Functions
     // ----------------------------------------------------------------------------
-    // Edits an existing site based on the form fields
 
+    // $scope.sitesByName = function(output){
+
+    //     $scope.sites = {};
+
+    //     $http.get('/typeahead-query')
+    //     .then(function(output){
+    //         $scope.sites = output.data;
+    //         console.log('sitesByName: '+ $scope.sites);
+    //     });
+    // };
+    // sitesByName(output);
+    // Does the typeahead and plugs it in to the db.
+    $scope.typeAhead = function(val) {
+
+        $scope.entered = val;
+
+        return $http.get('/typeahead-query', $scope.entered)
+        .then(function(output){
+
+            // define the search results
+            $scope.searchData = output.data;
+            var sites = $scope.searchData;
+            $scope.siteNames = [];
+
+            sites.forEach(function(site){
+
+                $scope.siteNames.push(site.siteName);
+
+            });
+            return $scope.siteNames;
+
+        });
+
+    };
+    // $scope.taModelOptions = {
+    //   debounce: {
+    //     default: 500,
+    //     blur: 250
+    //   },
+    //   getterSetter: true
+    // };
+
+    // Get an existing site based on the text input
     $scope.getSite = function(data) {
+        console.log('function: getSite()');
+        // console.log('Data: ' + data);
         var siteToEdit = {};
         queryBody = {
                 siteName: data
             };
 
-        console.log('Search data: ' + angular.toJson(queryBody));
+        // console.log('Search data: ' + angular.toJson(queryBody));
 
         $http.post('/site-edit-query', queryBody)
             .success(function (queryResults) {
-                console.log('Site to edit query:-');
-                console.log(queryResults);
+                // console.log('Site to edit query:-');
+                // console.log(queryResults);
                 siteToEdit = queryResults[0];
-                console.log('Site to edit json:-');
-                console.log(siteToEdit);
-                dateVisited = new Date(siteToEdit.dateVisited);
-                // Once complete, clear the form (except location)
-                $scope.formData.siteName = siteToEdit.siteName;
-                $scope.formData.siteDesc = siteToEdit.siteDesc;
-                $scope.formData.dateVisited = dateVisited;
-                $scope.formData.latitude = siteToEdit.siteCoords[1];
-                $scope.formData.longitude = siteToEdit.siteCoords[0];
+                console.log('Site to edit: ' + angular.toJson(siteToEdit));
+                if(!siteToEdit){
+                    console.log('not enough info to select a site.');
+                } else {
+                    // console.log('Site to edit json:-');
+                    // console.log(siteToEdit);
 
-                gservice.refresh($scope.formData.latitude, $scope.formData.longitude, queryResults[0]);
+                     var dateVisited = new Date(siteToEdit.dateVisited);
+                     console.log('Date we visited: ' + dateVisited);
+                     // Once complete, clear the form (except location)
+                     $scope.formData.siteName = siteToEdit.siteName;
+                     $scope.formData.siteDesc = siteToEdit.siteDesc;
+                     $scope.formData.dateVisited = dateVisited;
+                     $scope.formData.latitude = siteToEdit.siteCoords[1];
+                     $scope.formData.longitude = siteToEdit.siteCoords[0];
+                     $scope.formData.htmlverified = siteToEdit.htmlverified;
+
+                     gservice.refresh($scope.formData.latitude, $scope.formData.longitude, queryResults[0]);
+                 }
 
             })
             .error(function (queryResults) {
@@ -82,24 +138,30 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
 
     $scope.editSite = function() {
 
+        var jsonDate = JSON.stringify({date: $scope.formData.dateVisited});
+        var dateObj = JSON.parse(jsonDate);
+        console.log('jsonDate: ' + jsonDate);
+        console.log('dateObj: ' + dateObj.date);
+        dateObj.date = new Date(dateObj.date);
+        console.log('new date for saving: ' + dateObj.date);
         // Grabs all of the text box fields
         var siteData = {
             siteName: $scope.formData.siteName,
             siteDesc: $scope.formData.siteDesc,
-            dateVisited: $scope.formData.dateVisited,
+            dateVisited: new Date(dateObj.date),
             siteCoords: [$scope.formData.longitude, $scope.formData.latitude],
             htmlverified: $scope.formData.htmlverified
         };
-
+        console.log('Date visited: ' + siteData.dateVisited);
         // Saves the user data to the db
         $http.post('/site-edit', siteData)
             .success(function (data) {
-
+                console.log('siteData posted');
                 // Once complete, clear the form (except location)
-                $scope.formData.siteName = "";
-                $scope.formData.siteDesc = "";
-                $scope.formData.dateVisited = "";
-                $scope.formData.siteCoords = "";
+                // $scope.formData.siteName = "";
+                // $scope.formData.siteDesc = "";
+                // $scope.formData.dateVisited = "";
+                // $scope.formData.siteCoords = "";
 
                 // Refresh the map with new data
                 gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
