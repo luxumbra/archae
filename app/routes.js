@@ -1,15 +1,16 @@
 // Dependencies
 var mongoose        = require('mongoose');
 var Site            = require('./model.js');
-
+// var ma              = require('jquery');
 // Opens App Routes
 module.exports = function(app) {
-
+    // ma.console.log('routes...');
     // GET Routes
     // --------------------------------------------------------
     // Retrieve records for all sites in the db
     app.get('/sites', function(req, res){
-
+        console.log('Route: /sites - Get all sites');
+        console.log('-------------------------');
         // Uses Mongoose schema to run the search (empty conditions)
         var query = Site.find({});
         query.exec(function(err, sites){
@@ -21,12 +22,41 @@ module.exports = function(app) {
         });
     });
 
+    // Retrieve records for the typeahead functionality
+    app.get('/typeahead-query', function(req, res){
+        var input = req.body;
+        // res.json(input);
+        // var jsonInput = angular.toJson(input);
+        // res.send('input: ' + input);
+        // Opens a generic Mongoose Query. Depending on the post body we will...
+        // var query = Site.find({});
+
+
+        // ... Other queries will go here ...
+        if(input) {
+            var query = Site.find({})
+            .select('siteName')
+            .limit(8);
+                // res.send(query);
+                // Execute Query and Return the Query Results
+                query.exec(function(err, output){
+                    if(err)
+                        res.send(err);
+
+                    // If no errors, respond with a JSON of all users that meet the criteria
+                    res.json(output);
+                });
+        }
+
+
+    });
+
     // POST Routes
     // --------------------------------------------------------
     // Provides method for saving new users in the db
     app.post('/sites', function(req, res){
 
-        // Creates a new User based on the Mongoose schema and the post bo.dy
+        // Creates a new User based on the Mongoose schema and the post body
         var newsite = new Site(req.body);
 
         // New User is saved in the db.
@@ -35,6 +65,23 @@ module.exports = function(app) {
                 res.send(err);
 
             // If no errors are found, it responds with a JSON of the new user
+            res.json(req.body);
+        });
+    });
+
+    app.post('/site-edit', function(req, res){
+        var site = Site(req.body);
+        console.log('Site Data: ' + site);
+        console.log('site for editing: ' + req.body.siteName);
+
+        // Uses Mongoose schema to run the search (empty conditions)
+        var query = Site.update({'siteName': req.body.siteName});
+
+        Site.update(function(err){
+            if(err)
+                res.send(err);
+
+            // If no errors are found, it responds with a JSON of all users
             res.json(req.body);
         });
     });
@@ -85,30 +132,29 @@ module.exports = function(app) {
     });
     app.post('/site-edit-query', function(req, res){
         var siteName = req.body.siteName;
-        console.log('route site edit query: ' + siteName);
         // Uses Mongoose schema to run the search (empty conditions)
         var query = Site.find({'siteName': ''+siteName+''});
 
-        query.exec(function(err, sites){
+        query.exec(function(err, site){
             if(err)
                 res.send(err);
 
             // If no errors are found, it responds with a JSON of all users
-            res.json(sites);
+            res.json(site);
         });
     });
-    app.post('/site-edit', function(req, res){
-        var siteName = req.body.siteName;
-        console.log('site for editing: ' + siteName);
-        // Uses Mongoose schema to run the search (empty conditions)
-        var query = Site.update({'siteName': siteName});
+    // app.post('/site-edit', function(req, res){
+    //     var site = req.body;
+    //     console.log('site for editing: ' + siteName);
+    //     // Uses Mongoose schema to run the search (empty conditions)
+    //     var query = Site.update({'siteName': siteName});
 
-        query.exec(function(err, sites){
-            if(err)
-                res.send(err);
+    //     query.exec(function(err, sites){
+    //         if(err)
+    //             res.send(err);
 
-            // If no errors are found, it responds with a JSON of all users
-            res.json(sites);
-        });
-    });
+    //         // If no errors are found, it responds with a JSON of all users
+    //         res.json(sites);
+    //     });
+    // });
 };

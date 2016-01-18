@@ -196,11 +196,11 @@ angular.module('gservice', [])
             // });
             map.setZoom(10);
 
-            var doZoom = angular.element('#zoomButton');
+            var doZoom = $('#zoomButton');
 
             if(doZoom){
-                console.log('zoom: ' + angular.toJson(doZoom,true));
-                $('#zoomButton').on('click', function(){
+                console.log('zoom: ' + doZoom);
+                doZoom.on('click', function(){
                     console.log('Clicked the zoom');
                     map.setZoom(16);
                     map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
@@ -214,30 +214,30 @@ angular.module('gservice', [])
             map.panTo(new google.maps.LatLng(latitude, longitude));
 
             // Clicking on the Map moves the bouncing red marker
-            google.maps.event.addListener(map, 'click', function(e){
-                var marker = new google.maps.Marker({
-                    position: e.latLng,
-                    animation: google.maps.Animation.BOUNCE,
-                    map: map,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-                });
+            // google.maps.event.addListener(map, 'click', function(e){
+            //     var marker = new google.maps.Marker({
+            //         position: e.latLng,
+            //         animation: google.maps.Animation.BOUNCE,
+            //         map: map,
+            //         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            //     });
 
-                // When a new spot is selected, delete the old red bouncing marker
-                if(lastMarker){
-                    lastMarker.setMap(null);
-                }
+            //     // When a new spot is selected, delete the old red bouncing marker
+            //     if(lastMarker){
+            //         lastMarker.setMap(null);
+            //     }
 
-                // Create a new red bouncing marker and move to it
-                lastMarker = marker;
-                // map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-                // map.setZoom(16);
-                map.panTo(marker.position);
+            //     // Create a new red bouncing marker and move to it
+            //     lastMarker = marker;
+            //     map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            //     map.setZoom(18);
+            //     map.panTo(marker.position);
 
-                // Update Broadcasted Variable (lets the panels know to change their lat, long values)
-                googleMapService.clickLat = marker.getPosition().lat();
-                googleMapService.clickLong = marker.getPosition().lng();
-                $rootScope.$broadcast("clicked");
-            });
+            //     // Update Broadcasted Variable (lets the panels know to change their lat, long values)
+            //     googleMapService.clickLat = marker.getPosition().lat();
+            //     googleMapService.clickLong = marker.getPosition().lng();
+            //     $rootScope.$broadcast("clicked");
+            // });
         }
 
     };

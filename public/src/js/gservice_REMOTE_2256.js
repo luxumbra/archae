@@ -203,10 +203,9 @@ angular.module('gservice', [])
                 $('#zoomButton').on('click', function(){
                     console.log('Clicked the zoom');
                     map.setZoom(16);
-                    map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
                 });
             } else {
-                map.setZoom(10);
+                map.setZoom(16);
             }
             // lastMarker = marker;
 

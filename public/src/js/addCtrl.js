@@ -36,8 +36,8 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
 
         // Run the gservice functions associated with identifying coordinates
         $scope.$apply(function(){
-            $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
-            $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
+            $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(5);
+            $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(5);
             $scope.formData.htmlverified = "Site selected";
         });
     });
@@ -46,12 +46,15 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
     // ----------------------------------------------------------------------------
     // Creates a new site based on the form fields
     $scope.createSite = function() {
+        var jsonDate = JSON.stringify({date: $scope.formData.dateVisited});
+        var dateObj = JSON.parse(jsonDate);
 
+        dateObj.date = new Date(dateObj.date);
         // Grabs all of the text box fields
         var siteData = {
             siteName: $scope.formData.siteName,
             siteDesc: $scope.formData.siteDesc,
-            dateVisited: $scope.formData.dateVisited,
+            dateVisited: dateObj.date,
             siteCoords: [$scope.formData.longitude, $scope.formData.latitude],
             htmlverified: $scope.formData.htmlverified
         };

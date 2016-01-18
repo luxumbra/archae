@@ -6,9 +6,9 @@ var Schema      = mongoose.Schema;
 var SiteSchema = new Schema({
     siteName: {type: String, required: true},
     siteDesc: {type: String, required: true},
-    dateVisited: {type: Date, required: true},
+    dateVisited: {type: Date, required: true, default: Date.now},
     siteCoords: {type: [Number], required: true}, // [Long, Lat]
-    htmlverified: String,
+    htmlverified: {type: String},
     created_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now}
 });
