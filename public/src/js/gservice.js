@@ -1,7 +1,7 @@
 
 // Creates the gservice factory. This will be the primary means by which we interact with Google Maps
 angular.module('gservice', [])
-    .factory('gservice', function($rootScope, $http){
+    .factory('gservice', function($rootScope, $http, $filter){
 
         // Initialize Variables
         // -------------------------------------------------------------
@@ -70,9 +70,10 @@ angular.module('gservice', [])
                 var site = response[i];
 
                 // Create popup windows for each record
+                var dateVisited = new Date(site.dateVisited);
                 var  contentString =
                     '<p><b>Site name</b>: ' + site.siteName +
-                    '<br><b>Date visited</b>: ' + site.dateVisited +
+                    '<br><b>Date visited</b>: ' + $filter('date')(dateVisited, "h:mm on EEEE, d MMM yyyy GG") +
                     '</p>';
 
                 // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).

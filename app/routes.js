@@ -70,14 +70,14 @@ module.exports = function(app) {
     });
 
     app.post('/site-edit', function(req, res){
-        var site = Site(req.body);
-        console.log('Site Data: ' + site);
-        console.log('site for editing: ' + req.body.siteName);
+        var site = req.body;
+
+        console.log('site for editing: ' + site.siteName);
 
         // Uses Mongoose schema to run the search (empty conditions)
-        var query = Site.update({'siteName': req.body.siteName});
+        var siteedit = Site.update({'siteName': ''+site.siteName+''}, {$set: {'dateVisited': site.dateVisited, 'siteDesc': ''+site.siteDesc+''}});
 
-        Site.update(function(err){
+        siteedit.exec(function(err){
             if(err)
                 res.send(err);
 
@@ -143,18 +143,5 @@ module.exports = function(app) {
             res.json(site);
         });
     });
-    // app.post('/site-edit', function(req, res){
-    //     var site = req.body;
-    //     console.log('site for editing: ' + siteName);
-    //     // Uses Mongoose schema to run the search (empty conditions)
-    //     var query = Site.update({'siteName': siteName});
 
-    //     query.exec(function(err, sites){
-    //         if(err)
-    //             res.send(err);
-
-    //         // If no errors are found, it responds with a JSON of all users
-    //         res.json(sites);
-    //     });
-    // });
 };

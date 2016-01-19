@@ -15,9 +15,7 @@
                 </div> -->
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                 <div class="form-group">
-                    <label for="siteName">Site name <span class="badge btn-info">All fields required</span></label>
-                    <!-- <input type="text" class="form-control" id="siteName" placeholder="Enter the site to edit..." ng-model="formData.siteName" ng-blur="getSite(formData.siteName)" value="formData.siteName" required> -->
-                    <!-- <pre>Model: {{formData | json}}</pre> -->
+                    <label for="siteName">Site name <span class="badge btn-info">Enter name of site...</span></label>
                     <input type="text" ng-model="formData.siteName" id="siteName" placeholder="Start typing the site name" bs-options="siteNames for siteNames in typeAhead($viewValue)" data-animation="am-flip-x" class="form-control" autocomplete="off" ng-blur="getSite(formData.siteName)" bs-typeahead>
 <!--                         <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                         <div ng-show="noResults">
@@ -27,11 +25,14 @@
                                 <dd ng-repeat="siteName in searchData"><pre>{{siteName.siteName}}</b></dd>
                             </dl>
                         </div> -->
+                        <p>{{siteId}}</p>
                 </div>
                 <div class="form-group">
-                    <label for="dateVisited">Date visited</label>
+                    <label class="control-label" for="dateVisited">
+                        Date visited: {{formData.dateVisited | date}}
+                    </label>
                     <div class="input-group">
-                        <input type="date" class="form-control" id="dateVistied" placeholder="" ng-model="formData.dateVisited" data-animation="am-flip-x" value="formData.dateVisited" bs-datepicker>
+                        <input type="text" class="form-control" id="dateVisited" placeholder="" ng-model="formData.dateVisited" data-date-format="yyyy-MM-dd" data-animation="am-flip-x" value="formData.dateVisited" data-min-date="2014/10/01" data-max-date="today" autocomplete="off" bs-datepicker>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -56,7 +57,7 @@
 
                 <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
                 <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-primary btn-sm" ng-click="editSite()" ng-disabled="editForm.$invalid">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="editSite(siteId)" ng-disabled="editForm.$invalid">Submit</button>
                     <button type="reset" class="btn btn-muted btn-sm" ng-click="resetForm()" ng-disabled="editForm.$pristine">Reset</button>
                 </div>
             </form>

@@ -11,12 +11,12 @@
             <form name ="addForm" novalidate>
                 <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                 <div class="form-group">
-                    <label for="siteName">Site name <span class="badge btn-info">All fields required</span></label>
+                    <label for="siteName">Site name <span class="badge btn-danger">All fields required</span></label>
                     <input type="text" class="form-control" id="siteName" placeholder="Cashtal Yn Ard" ng-model="formData.siteName" required>
                 </div>
                 <div class="form-group">
                     <label for="dateVisited">Date visited</label>
-                    <input type="date" class="form-control" id="dateVistied" placeholder="" ng-model="formData.dateVisited" required>
+                    <input type="text" class="form-control" id="dateVistied" placeholder="" ng-model="formData.dateVisited" data-date-format="yyyy-MM-dd" data-animation="am-flip-x" data-min-date="2014/10/01" data-max-date="today" autocomplete="off" bs-datepicker required>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>

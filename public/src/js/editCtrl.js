@@ -110,7 +110,8 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
                 // console.log('Site to edit query:-');
                 // console.log(queryResults);
                 siteToEdit = queryResults[0];
-                console.log('Site to edit: ' + angular.toJson(siteToEdit));
+                // console.log('Site to edit: ' + angular.toJson(siteToEdit, true));
+                // console.log('---------------------------------------');
                 if(!siteToEdit){
                     console.log('not enough info to select a site.');
                 } else {
@@ -118,11 +119,14 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
                     // console.log(siteToEdit);
 
                      var dateVisited = new Date(siteToEdit.dateVisited);
-                     console.log('Date we visited: ' + dateVisited);
-                     // Once complete, clear the form (except location)
+                     // console.log('siteToEdit.dateVisited: ' + siteToEdit.dateVisited);
+                     // console.log('Date we visited: ' + dateVisited);
+
+                     // Populate all the form fields with site data
+                     $scope.siteId = siteToEdit._id;
                      $scope.formData.siteName = siteToEdit.siteName;
                      $scope.formData.siteDesc = siteToEdit.siteDesc;
-                     $scope.formData.dateVisited = dateVisited;
+                     $scope.formData.dateVisited = siteToEdit.dateVisited;
                      $scope.formData.latitude = siteToEdit.siteCoords[1];
                      $scope.formData.longitude = siteToEdit.siteCoords[0];
                      $scope.formData.htmlverified = siteToEdit.htmlverified;
@@ -136,19 +140,22 @@ editCtrl.controller('editCtrl', function($scope, $http, $rootScope, geolocation,
             });
     };
 
-    $scope.editSite = function() {
-
+    $scope.editSite = function(siteId) {
         var jsonDate = JSON.stringify({date: $scope.formData.dateVisited});
         var dateObj = JSON.parse(jsonDate);
-        console.log('jsonDate: ' + jsonDate);
-        console.log('dateObj: ' + dateObj.date);
+
         dateObj.date = new Date(dateObj.date);
+
+        console.log('site id: ' + siteId);
+        console.log('dateObj: ' + dateObj);
+
         console.log('new date for saving: ' + dateObj.date);
         // Grabs all of the text box fields
         var siteData = {
+            siteId: siteId,
             siteName: $scope.formData.siteName,
             siteDesc: $scope.formData.siteDesc,
-            dateVisited: new Date(dateObj.date),
+            dateVisited: dateObj.date,
             siteCoords: [$scope.formData.longitude, $scope.formData.latitude],
             htmlverified: $scope.formData.htmlverified
         };
